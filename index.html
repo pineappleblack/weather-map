@@ -19,8 +19,7 @@
     <style>
       .top_map {
           width: 100%;
-          height: 60vh;
-          min-height: 361px
+          height: 500px;
       }
 
     </style>
@@ -64,10 +63,10 @@
 
   $.each(items, function( index ) {
     el = items[index]
-    L.circle([el['lat'], el['lon']], {
+    L.circleMarker([el['lat'], el['lon']], {
       fillColor: color(el['RVA'] * 100),
       fillOpacity: 1,
-      radius: 100000,
+      radius: 10,
       weight: 0
     
     }).addTo(mymap);
