@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -21,6 +22,7 @@
           height: 60vh;
           min-height: 361px
       }
+
     </style>
 
   </head>
@@ -31,37 +33,49 @@
 
   <script>
 
-  $.ajax({
-          type: "POST",
-          dataType: 'json',
-          contentType: "application/json",
-          url: "https://googledrive.com/host/19NH9TulepIyEtETfQ9vPO3fcToeSx96y"
-      })
-    .done(function( data ) {
-      // reference data here
-      console.log( data );
-    });
-
+  var body = d3.select("body"),
+    length = 10,
+    color = d3.scale.linear().domain([1,length])
+      .interpolate(d3.interpolateHcl)
+      .range([d3.rgb('#c70039'), d3.rgb("#900c3f")]);
+    
   var mymap = L.map('russia_heatmap', {
-      sleep: true,
-      sleepNote: false,
-      hoverToWake: true,
-      sleepOpacity: 1.0,
-      fullscreenControl: true,
-      fullscreenControlOptions: {
-      position: 'topleft'
-      },
-      layers: [
-        L.tileLayer('https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'),
-      ]
-  }).setView([55.7558, 37.6173], 3) // moskau
+    sleep: true,
+    sleepNote: false,
+    hoverToWake: true,
+    sleepOpacity: 1.0,
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+    position: 'topleft'
+    },
+    layers: [
+      L.tileLayer('https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'),
+    ]
+  }).setView([55.7558, 90], 2) // moskau
 
-    var circle = L.circle([55.7558, 37.6173], {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5,
-      radius: 500
-  }).addTo(mymap);
+  $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json", function( data ) {
+  var items = [];
+
+  $.each(data, function( key, val ) {
+    items.push( val );
+  });
+
+  console.log(items[0]['lat'], items[0]['lon'], items[0]['RVA'])
+
+  $.each(items, function( index ) {
+    el = items[index]
+    L.circle([el['lat'], el['lon']], {
+      fillColor: color(el['RVA'] * 100),
+      fillOpacity: 1,
+      radius: 100000,
+      weight: 0
+    
+    }).addTo(mymap);
+  });
+    
+  });
+
+    
   </script>
 
       
