@@ -58,5 +58,5 @@ $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/
     });
 
 
-    console.log()
+    console.log('Test')
 });
