@@ -59,7 +59,7 @@ $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/
         weight: 0,
         }).addTo(mymap);
 
-        circles[index].bindPopup("Координаты: " + circles[index]['_latlng']['lat'] + ", " + circles[index]['_latlng']['lng'])
+        // circles[index].bindPopup("Координаты: " + circles[index]['_latlng']['lat'] + ", " + circles[index]['_latlng']['lng'])
     });
 
 });
