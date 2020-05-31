@@ -1,9 +1,6 @@
-// запуск карты  
 var mymap = L.map('map', {
-    sleep: true,
-    sleepNote: false,
-    hoverToWake: true,
-    sleepOpacity: 1.0,
+    minZoom: 2,
+    maxZoom: 5,
     fullscreenControl: true,
     fullscreenControlOptions: {
     position: 'topleft'
@@ -12,6 +9,14 @@ var mymap = L.map('map', {
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'),
     ]
 }).setView([50, 90], 2) 
+
+
+// запуск карты  
+var southWest = L.latLng(90, -180),
+    northEast = L.latLng(-70, 220),
+    bounds = L.latLngBounds(southWest, northEast);
+
+mymap.setMaxBounds(bounds);
 
 // создание цветовой палитры и легенды
 
@@ -57,6 +62,4 @@ $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/
         circles[index].bindPopup("Координаты: " + circles[index]['_latlng']['lat'] + ", " + circles[index]['_latlng']['lng'])
     });
 
-
-    console.log('Test')
 });
