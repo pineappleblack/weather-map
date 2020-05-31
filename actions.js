@@ -15,10 +15,10 @@ var mymap = L.map('map', {
 
 // создание цветовой палитры и легенды
 
-var length = 60,
+var length = 30,
 color = d3.scale.linear().domain([1,length])
   .interpolate(d3.interpolateHcl)
-  .range([d3.rgb("#a2bb7f"), d3.rgb('#d84a4a')]);
+  .range([d3.rgb("#67cc45"), d3.rgb('#ff4d6a')]);
 
 var legend = L.control({position: 'bottomright'});
 
@@ -48,10 +48,9 @@ $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/
         el = data[index]
         L.circleMarker([el['lat'], el['lon']], {
         fillColor: color(el['RVA'] * 100),
-        fillOpacity: 1,
+        fillOpacity: 0.9,
         radius: 10,
         weight: 0
-
         }).addTo(mymap);
     });
 
