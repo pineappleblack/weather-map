@@ -43,16 +43,20 @@ legend.addTo(mymap);
 
 $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json", function( data ) {
 
+    circles = []
     // нанесение точек на карту
     $.each(data, function( index ) {
         el = data[index]
-        L.circleMarker([el['lat'], el['lon']], {
+        circles[index] = L.circleMarker([el['lat'], el['lon']], {
         fillColor: color(el['RVA'] * 100),
         fillOpacity: 0.9,
         radius: 10,
-        weight: 0
+        weight: 0,
         }).addTo(mymap);
+
+        //circles[index].bindPopup("Тултип: ")
     });
 
-});
 
+    console.log()
+});
