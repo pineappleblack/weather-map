@@ -49,6 +49,8 @@ legend.addTo(mymap);
 
 var timestamp = Math.floor(Date.now() / 1000)
 
+console.log("https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json?" + timestamp)
+
 $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json?" + timestamp, function( data ) {
 
     circles = []
