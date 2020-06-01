@@ -46,7 +46,10 @@ legend.onAdd = function (mymap) {
 
 legend.addTo(mymap);
 
-$.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json", function( data ) {
+
+var timestamp = Math.floor(Date.now() / 1000)
+
+$.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json?" + timestamp, function( data ) {
 
     circles = []
     // нанесение точек на карту
