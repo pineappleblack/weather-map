@@ -47,11 +47,11 @@ legend.onAdd = function (mymap) {
 legend.addTo(mymap);
 
 
-var timestamp = Math.floor(Date.now() / 1000)
+$(document).ready(function() {
+    $.ajaxSetup({ cache: false });
+});
 
-console.log("https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json?" + timestamp)
-
-$.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json?" + timestamp, function( data ) {
+$.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json?", function( data ) {
 
     circles = []
     // нанесение точек на карту
