@@ -20,7 +20,7 @@ mymap.setMaxBounds(bounds);
 
 // создание цветовой палитры и легенды
 
-var length = 30,
+var length = 40,
 color = d3.scale.linear().domain([1,length])
   .interpolate(d3.interpolateHcl)
   .range([d3.rgb("#67cc45"), d3.rgb('#ff4d6a')]);
@@ -64,7 +64,7 @@ $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/
         weight: 0,
         }).addTo(mymap);
 
-        // circles[index].bindPopup("Координаты: " + circles[index]['_latlng']['lat'] + ", " + circles[index]['_latlng']['lng'])
+        circles[index].bindPopup("Координаты: " + circles[index]['_latlng']['lat'] + ", " + circles[index]['_latlng']['lng'])
     });
 
 });
