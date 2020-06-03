@@ -60,7 +60,7 @@ $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/
         circles[index] = L.circleMarker([el['lat'], el['lon']], {
         fillColor: color(el['RVA'] * 100),
         fillOpacity: 0.9,
-        radius: 10,
+        radius: 9,
         weight: 0,
         }).addTo(mymap);
 
