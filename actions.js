@@ -1,4 +1,4 @@
-var mymap = L.map('map', {
+var map = L.map('map', {
     minZoom: 2,
     maxZoom: 5,
     fullscreenControl: true,
@@ -16,7 +16,7 @@ var southWest = L.latLng(90, -180),
     northEast = L.latLng(-70, 220),
     bounds = L.latLngBounds(southWest, northEast);
 
-mymap.setMaxBounds(bounds);
+map.setMaxBounds(bounds);
 
 // создание цветовой палитры и легенды
 
@@ -27,7 +27,7 @@ color = d3.scale.linear().domain([1,length])
 
 var legend = L.control({position: 'bottomright'});
 
-legend.onAdd = function (mymap) {
+legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend')
 
@@ -44,27 +44,55 @@ legend.onAdd = function (mymap) {
     return div;
 };
 
-legend.addTo(mymap);
+legend.addTo(map);
 
 
 $(document).ready(function() {
     $.ajaxSetup({ cache: false });
 });
 
+L.svg().addTo(map);
+
 $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json", function( data ) {
 
-    circles = []
+    markers = []
     // нанесение точек на карту
     $.each(data, function( index ) {
         el = data[index]
-        circles[index] = L.circleMarker([el['lat'], el['lon']], {
-        fillColor: color(el['RVA'] * 100),
-        fillOpacity: 0.9,
-        radius: 9,
-        weight: 0,
-        }).addTo(mymap);
+        markers[index] = {long: el['lon'], lat: el['lat'],  rva: el['RVA']}
 
-        circles[index].bindPopup("Координаты: " + circles[index]['_latlng']['lat'] + ", " + circles[index]['_latlng']['lng'])
+        // el = data[index]
+        // circles[index] = L.circleMarker([el['lat'], el['lon']], {
+        // fillColor: color(el['RVA'] * 100),
+        // fillOpacity: 0.9,
+        // radius: 9,
+        // weight: 0,
+        // }).addTo(map);
+
+        // circles[index].bindPopup("Координаты: " + circles[index]['_latlng']['lat'] + ", " + circles[index]['_latlng']['lng'])
     });
+
+    // Select the svg area and add circles:
+    d3.select("#map")
+    .select("svg")
+    .selectAll("myCircles")
+    .data(markers)
+    .enter()
+    .append("circle")
+    .attr("cx", function(d){ return map.latLngToLayerPoint([d.lat, d.long]).x })
+    .attr("cy", function(d){ return map.latLngToLayerPoint([d.lat, d.long]).y })
+    .attr("r", 10)
+    .style("fill", function(d){ return color(d.rva * 100)} ) 
+    .attr("fill-opacity", 0.9)
+
+    // Function that update circle position if something change
+    function update() {
+    d3.selectAll("circle")
+    .attr("cx", function(d){ return map.latLngToLayerPoint([d.lat, d.long]).x })
+    .attr("cy", function(d){ return map.latLngToLayerPoint([d.lat, d.long]).y })
+    }
+
+    // If the user change the map (zoom or drag), I update circle position:
+    map.on("moveend", update)
 
 });
