@@ -51,7 +51,7 @@ $(document).ready(function() {
     $.ajaxSetup({ cache: false });
 });
 
-$.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json?", function( data ) {
+$.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/weather_data_final.json", function( data ) {
 
     circles = []
     // нанесение точек на карту
