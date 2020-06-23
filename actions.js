@@ -81,7 +81,7 @@ $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/
     .append("circle")
     .attr("cx", function(d){ return map.latLngToLayerPoint([d.lat, d.long]).x })
     .attr("cy", function(d){ return map.latLngToLayerPoint([d.lat, d.long]).y })
-    .attr("r", function(d){ return 12 - map.getZoom() })
+    .attr("r", function(d){ return 8 - map.getZoom() * 1 })
     .style("fill", function(d){ return color(d.rva * 100)} ) 
     .attr("fill-opacity", 0.9)
 
@@ -90,7 +90,7 @@ $.getJSON( "https://raw.githubusercontent.com/pineappleblack/weather-map/master/
     d3.selectAll("circle")
     .attr("cx", function(d){ return map.latLngToLayerPoint([d.lat, d.long]).x })
     .attr("cy", function(d){ return map.latLngToLayerPoint([d.lat, d.long]).y })
-    .attr("r", function(d){ return 12 - map.getZoom() * 1.5 })
+    .attr("r", function(d){ return 8 - map.getZoom() * 1 })
     }
 
     // If the user change the map (zoom or drag), I update circle position:
